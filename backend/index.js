@@ -17,7 +17,9 @@ app.get('/', (req, res) => {
 
 app.get('/options', (req, res) => {
   const itemId = req.query.id
-  res.json(options[itemId - 1])
+  const listIndex = list.findIndex(({ id }) => id == itemId);
+  const result = { ...list[listIndex], options: options[itemId - 1] }
+  res.json(result)
 })
 
 app.listen(3000, () => console.log('server start'))
