@@ -1,11 +1,15 @@
 import express from 'express';
 import cors from 'cors'
+import path from 'path';
+
 import { list, options } from './data/list.js'
 
+const __dirname = path.resolve();
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use('/static', express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.json(list)
