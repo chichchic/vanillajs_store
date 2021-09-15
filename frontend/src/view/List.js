@@ -18,6 +18,10 @@ class List extends Component {
     </ul>
     `
   }
+  setEvent() {
+    const { clickEvent } = this.state;
+    this.addEvent('click', '.item-card', clickEvent)
+  }
 }
 
 export default List;
