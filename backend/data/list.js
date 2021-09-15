@@ -2,7 +2,7 @@ const imageUrl = 'http://127.0.0.1:3000/static/images/'
 export const list = [
   { id: 1, name: '햄버거', imgSrc: `${imageUrl}/hamburger.jpeg`, cost: 5000 },
   { id: 2, name: '치킨', imgSrc: `${imageUrl}/chicken.jpeg`, cost: 10000 },
-  { id: 3, name: '볶음밥', imgSrc: `${imageUrl}/fired_rice.jpeg`, cost: 8000 },
+  { id: 3, name: '볶음밥', imgSrc: `${imageUrl}/fried_rice.jpeg`, cost: 8000 },
   { id: 4, name: '라면', imgSrc: `${imageUrl}/ramen.jpeg`, cost: 3000 },
   { id: 5, name: '핫도그', imgSrc: `${imageUrl}/hotdog.jpeg`, cost: 1000 },
   { id: 6, name: '케이크', imgSrc: `${imageUrl}/cake.jpeg`, cost: 20000 },
