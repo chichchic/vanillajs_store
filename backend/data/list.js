@@ -1,16 +1,17 @@
+const imageUrl = 'http://127.0.0.1:3000/static/images/'
 export const list = [
-  { id: 1, name: '햄버거', imageSrc: '', cost: 5000 },
-  { id: 2, name: '치킨', imageSrc: '', cost: 10000 },
-  { id: 3, name: '볶음밥', imageSrc: '', cost: 8000 },
-  { id: 4, name: '라면', imageSrc: '', cost: 3000 },
-  { id: 5, name: '핫도그', imageSrc: '', cost: 1000 },
-  { id: 6, name: '케이크', imageSrc: '', cost: 20000 },
-  { id: 7, name: '빼빼로', imageSrc: '', cost: 500 },
-  { id: 8, name: '아이스크림', imageSrc: '', cost: 800 },
-  { id: 9, name: '떡볶이', imageSrc: '', cost: 12000 },
-  { id: 10, name: '커피', imageSrc: '', cost: 2000 },
-  { id: 11, name: '잼', imageSrc: '', cost: 6000 },
-  { id: 12, name: '피자', imageSrc: '', cost: 8000 },
+  { id: 1, name: '햄버거', imgSrc: `${imageUrl}/hamburger.jpeg`, cost: 5000 },
+  { id: 2, name: '치킨', imgSrc: `${imageUrl}/chicken.jpeg`, cost: 10000 },
+  { id: 3, name: '볶음밥', imgSrc: `${imageUrl}/fired_rice.jpeg`, cost: 8000 },
+  { id: 4, name: '라면', imgSrc: `${imageUrl}/ramen.jpeg`, cost: 3000 },
+  { id: 5, name: '핫도그', imgSrc: `${imageUrl}/hotdog.jpeg`, cost: 1000 },
+  { id: 6, name: '케이크', imgSrc: `${imageUrl}/cake.jpeg`, cost: 20000 },
+  { id: 7, name: '빼빼로', imgSrc: `${imageUrl}/pepero.jpeg`, cost: 500 },
+  { id: 8, name: '아이스크림', imgSrc: `${imageUrl}/ice_cream.jpeg`, cost: 800 },
+  { id: 9, name: '떡볶이', imgSrc: `${imageUrl}/tteokbokki.jpeg`, cost: 12000 },
+  { id: 10, name: '커피', imgSrc: `${imageUrl}/coffee.jpeg`, cost: 2000 },
+  { id: 11, name: '잼', imgSrc: `${imageUrl}/jam.jpeg`, cost: 6000 },
+  { id: 12, name: '피자', imgSrc: `${imageUrl}/pizza.jpeg`, cost: 8000 },
 ]
 
 export const options = [
