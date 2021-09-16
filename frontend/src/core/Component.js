@@ -23,11 +23,12 @@ class Component {
   }
   addEvent(eventType, selector, callBack) {
     const children = [...this.$target.querySelectorAll(selector)]
-    const isTarget = target => children.includes(target)
+    const isTarget = target => children.find((el) => el === target)
       || target.closest(selector)
     this.$target.addEventListener(eventType, (event) => {
-      if (!isTarget(event.target)) return false;
-      callBack(event)
+      const currentTarget = isTarget(event.target)
+      if (!currentTarget) return false;
+      callBack(event, currentTarget)
     })
   }
 }

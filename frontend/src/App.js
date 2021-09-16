@@ -20,8 +20,8 @@ class App extends Component {
     const res = await fetch('http://127.0.0.1:3000/')
     const itemList = await res.json();
     const list = new List(this.$target, {
-      itemList: [], clickEvent: ({ target }) => {
-        const id = target.dataset.id
+      itemList: [], clickEvent: (e, currentTarget) => {
+        const id = currentTarget.dataset.id
         history.pushState({ id: id }, '품목', `/detail/${id}`)
         this.setState({ view: 'detail' })
       }
