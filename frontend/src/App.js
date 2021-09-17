@@ -27,10 +27,11 @@ class App extends Component {
       itemList: [],
       clickEvent: (e, currentTarget) => {
         const id = currentTarget.dataset.id
-        history.pushState({ id: id }, '품목', `/detail/${id}`)
+        history.pushState({ id: id }, '상세', `/detail/${id}`)
         this.setState({ view: 'detail' })
       },
       goCart: (e) => {
+        history.pushState(null, '카트', `/cart`)
         this.setState({ view: 'cart' })
       }
     });
@@ -50,12 +51,24 @@ class App extends Component {
         detail.setState({ selectedItemList: { ...detail.state.selectedItemList, ...newState } })
       },
       clickEvent: (e) => {
-        this.setState({ cart: { ...detail.state.cart, [id]: detail.state.selectedItemList }, view: 'list' })
+        history.pushState(null, '품목', `/`)
+        this.setState({
+          cart: { ...this.state.cart, [id]: detail.state.selectedItemList },
+          view: 'list'
+        })
       }
     });
   }
-  CartView() {
-    const cart = new Cart(this.$target, { cart: this.state.cart })
+  async CartView() {
+    const promises = Object.keys(this.state.cart).map(id => request(id));
+    const result = await Promise.all(promises);
+    const cart = new Cart(this.$target, {
+      cart: this.state.cart,
+      itemInfo: result.reduce((acc, val) => {
+        acc[val.id] = val;
+        return acc;
+      }, {})
+    })
   }
 }
 
