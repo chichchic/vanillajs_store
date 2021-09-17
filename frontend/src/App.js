@@ -51,8 +51,7 @@ class App extends Component {
         detail.setState({ selectedItemList: { ...detail.state.selectedItemList, ...newState } })
       },
       clickEvent: (e) => {
-        detail.setState({ cart: { ...detail.state.cart, [id]: detail.state.selectedItemList } })
-        this.setState({ view: 'list' })
+        this.setState({ cart: { ...detail.state.cart, [id]: detail.state.selectedItemList }, view: 'list' })
       }
     });
   }
