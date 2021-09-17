@@ -46,15 +46,14 @@ class Detail extends Component {
     this.state._childCoponents.selectedList = new SelectedList(document.querySelector('.selected-list'), {
       selectedItemList, defaultCost: cost, changeEvent: (e) => {
         const id = e.target.dataset.id
-        const counter = e.target.value < 0 ? 0
-          : e.target.value > e.target.max ? e.target.max
-            : e.target.value;
+        e.target.value = Math.min(e.target.min, e.target.value)
+        e.target.value = Math.max(e.target.max, e.target.value)
         this.setState({
           selectedItemList: {
             ...this.state.selectedItemList,
             [id]: {
               ...this.state.selectedItemList[id],
-              counter
+              counter: e.target.value
             }
           }
         })

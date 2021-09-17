@@ -10,7 +10,7 @@ class SelectedList extends Component {
         <li class="seleted-list">
           ${name}
             <input type="number" data-id="${id}"
-            value="${counter}"" class="counter" min="0" max="${stock}" size="10"/>
+            value="${counter}" class="counter" min="0" max="${stock}"/>
         </li>
       `).join('')
       }
