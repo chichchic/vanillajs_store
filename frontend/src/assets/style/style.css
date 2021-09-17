@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+li, ul, ol {
+  list-style: none;
+}
+
 body{
   width: 100%;
   padding: 10px;
@@ -35,4 +39,52 @@ body{
 
 .fit-picture{
   width: 50%;
+}
+
+.detail {
+  display: flex;
+  background-color: antiquewhite;
+  height: 100%;
+}
+
+.detail .fill-picture {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.detail .img-box
+{
+  width: 50%;
+  padding: 10px;
+  align-self: center;
+}
+.detail .option-box {
+  width: 50%;
+  padding: 10px;
+}
+h1 {
+  text-align: center;
+  font-size: 30px;
+}
+.selected-list{
+  border: 1px solid black;
+  padding: 10px;
+}
+.selected-list{
+  margin-top: auto;
+}
+.put-button{
+  width: 100%;
+  height: 20px;
+}
+.seleted-list{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.counter{
+  width: 40%;
+  height: 20px;
 }

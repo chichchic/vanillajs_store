@@ -6,9 +6,10 @@ class SelectedList extends Component {
     return `
       <ul>
         ${Object.entries(selectedItemList).map(([_, { name, counter, cost, id, stock }]) => `
-        <li>
+        <li class="seleted-list">
           ${name}
-            <input type="number" data-id="${id}" value="${counter}"" class="counter" min="0" max="${stock}"/>
+            <input type="number" data-id="${id}"
+            value="${counter}"" class="counter" min="0" max="${stock}" size="10"/>
         </li>
       `).join('')
       }
