@@ -1,5 +1,6 @@
 import Component from "../core/Component.js";
 import SelectedList from "../components/SelectedList.js";
+import { spearator } from '../utility/separator.js'
 
 class Detail extends Component {
   setup() {
@@ -28,7 +29,7 @@ class Detail extends Component {
                   value="${option.id}"
                   ${soldout ? 'disabled="true"' : ""}
         >
-        (${name}) ${option.name} ${option.cost > 0 ? '+' + option.cost + '원' : ''} ${soldout ? '(품절) ' : option.stock + '개'}
+        (${name}) ${option.name} ${option.cost > 0 ? '+' + spearator(option.cost) + '원' : ''} ${soldout ? '(품절) ' : option.stock + '개'}
                 </option >
       `
     }).join('')}

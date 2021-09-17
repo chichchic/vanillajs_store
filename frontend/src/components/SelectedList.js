@@ -1,5 +1,6 @@
 import Component from "../core/Component.js";
 
+import { spearator } from '../utility/separator.js'
 class SelectedList extends Component {
   template() {
     const { selectedItemList, defaultCost } = this.state;
@@ -14,7 +15,7 @@ class SelectedList extends Component {
       `).join('')
       }
       </ul>
-      <p> 총액: ${Object.entries(selectedItemList).reduce((acc, [_, { name, counter, cost, id, stock }]) => acc + (defaultCost + cost) * counter, 0)}원 </p>
+      <p> 총액: ${spearator(Object.entries(selectedItemList).reduce((acc, [_, { name, counter, cost, id, stock }]) => acc + (defaultCost + cost) * counter, 0))}원 </p>
     `
   }
   setEvent() {
