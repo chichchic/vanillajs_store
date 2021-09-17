@@ -32,7 +32,20 @@ class App extends Component {
     const { id } = history.state
     const res = await fetch(`http://127.0.0.1:3000/options?id=${id}`)
     const itemInfo = await res.json();
-    const detail = new Detail(this.$target, { ...itemInfo, changeEvent: (e) => { console.log(e.target.selectedIndex) } });
+    const detail = new Detail(this.$target, {
+      ...itemInfo,
+      changeEvent: function (e) {
+        const optionIndex = e.target.selectedIndex;
+        if (optionIndex <= 0) return;
+        const selectedOption = itemInfo.options[optionIndex - 1]
+        if (detail.state.selectedItemList[selectedOption.id] !== undefined) return;
+        const newState = { [selectedOption.id]: { ...selectedOption, counter: 1 } }
+        detail.setState({ selectedItemList: { ...detail.state.selectedItemList, ...newState } })
+      },
+      clickEvent: (e) => {
+        console.log(detail.state.selectedItemList)
+      }
+    });
   }
 }
 

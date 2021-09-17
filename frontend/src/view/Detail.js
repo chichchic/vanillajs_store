@@ -1,6 +1,10 @@
 import Component from "../core/Component.js";
+import SelectedList from "../components/SelectedList.js";
 
 class Detail extends Component {
+  setup() {
+    this.state.selectedItemList = {};
+  }
   template() {
     const { cost, id, imgSrc, name, options } = this.state;
     return `
@@ -31,13 +35,35 @@ class Detail extends Component {
           </select>
           <article class="selected-list">
           </artilce>
+          <button type="button" class="put-button">장바구니에 담기</button>
         </section>
       </article>
     `
   }
+  mounted() {
+    const { selectedItemList, cost } = this.state
+    this.state._childCoponents.selectedList = new SelectedList(document.querySelector('.selected-list'), {
+      selectedItemList, defaultCost: cost, changeEvent: (e) => {
+        const id = e.target.dataset.id
+        const counter = e.target.value < 0 ? 0
+          : e.target.value > e.target.max ? e.target.max
+            : e.target.value;
+        this.setState({
+          selectedItemList: {
+            ...this.state.selectedItemList,
+            [id]: {
+              ...this.state.selectedItemList[id],
+              counter
+            }
+          }
+        })
+      }
+    })
+  }
   setEvent() {
-    const { changeEvent } = this.state;
+    const { changeEvent, clickEvent } = this.state;
     this.addEvent('change', '.option-selet', changeEvent)
+    this.addEvent('click', '.put-button', clickEvent)
   }
 }
 
