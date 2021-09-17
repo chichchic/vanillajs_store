@@ -16,11 +16,13 @@ class List extends Component {
       </li>
     `).join('')}
     </ul>
+    <button type="button" class="go-cart">카트로 이동하기</button>
     `
   }
   setEvent() {
-    const { clickEvent } = this.state;
+    const { clickEvent, goCart } = this.state;
     this.addEvent('click', '.item-card', clickEvent)
+    this.addEvent('click', '.go-cart', goCart)
   }
 }
 

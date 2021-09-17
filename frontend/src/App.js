@@ -1,6 +1,7 @@
 import Component from "./core/Component.js";
 import List from "./view/List.js";
 import Detail from "./view/Detail.js";
+import Cart from "./view/Cart.js";
 class App extends Component {
   setup() {
     this.state = { view: 'list', cart: [] };
@@ -12,7 +13,10 @@ class App extends Component {
         this.listView();
         break;
       case 'detail':
-        this.Detail();
+        this.DetailView();
+        break;
+      case 'cart':
+        this.CartView();
         break;
     }
   }
@@ -20,15 +24,19 @@ class App extends Component {
     const res = await fetch('http://127.0.0.1:3000/')
     const itemList = await res.json();
     const list = new List(this.$target, {
-      itemList: [], clickEvent: (e, currentTarget) => {
+      itemList: [],
+      clickEvent: (e, currentTarget) => {
         const id = currentTarget.dataset.id
         history.pushState({ id: id }, '품목', `/detail/${id}`)
         this.setState({ view: 'detail' })
+      },
+      goCart: (e) => {
+        this.setState({ view: 'cart' })
       }
     });
     list.setState({ itemList })
   }
-  async Detail() {
+  async DetailView() {
     const { id } = history.state
     const res = await fetch(`http://127.0.0.1:3000/options?id=${id}`)
     const itemInfo = await res.json();
@@ -47,6 +55,9 @@ class App extends Component {
         this.setState({ view: 'list' })
       }
     });
+  }
+  CartView() {
+    const cart = new Cart(this.$target, { cart: this.state.cart })
   }
 }
 
