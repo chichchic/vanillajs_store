@@ -52,6 +52,10 @@ class App extends Component {
       },
       clickEvent: (e) => {
         history.pushState(null, '품목', `/`)
+        if (Object.keys(detail.state.selectedItemList).length === 0) {
+          this.setState({ view: 'list' })
+          return;
+        }
         this.setState({
           cart: { ...this.state.cart, [id]: detail.state.selectedItemList },
           view: 'list'
