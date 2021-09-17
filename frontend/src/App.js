@@ -2,6 +2,7 @@ import Component from "./core/Component.js";
 import List from "./view/List.js";
 import Detail from "./view/Detail.js";
 import Cart from "./view/Cart.js";
+import { request } from './utility/api.js'
 class App extends Component {
   setup() {
     this.state = { view: 'list', cart: [] };
@@ -21,8 +22,7 @@ class App extends Component {
     }
   }
   async listView() {
-    const res = await fetch('http://127.0.0.1:3000/')
-    const itemList = await res.json();
+    const itemList = await request();
     const list = new List(this.$target, {
       itemList: [],
       clickEvent: (e, currentTarget) => {
@@ -38,8 +38,7 @@ class App extends Component {
   }
   async DetailView() {
     const { id } = history.state
-    const res = await fetch(`http://127.0.0.1:3000/options?id=${id}`)
-    const itemInfo = await res.json();
+    const itemInfo = await request(id);
     const detail = new Detail(this.$target, {
       ...itemInfo,
       changeEvent: function (e) {
