@@ -11,7 +11,7 @@ class Detail extends Component {
       <article class="detail">
         <section class="img-box">
           <img
-            class="fit-picture"
+            class="fill-picture"
             src="${imgSrc}"
             alt="${name}"
           >
@@ -34,8 +34,8 @@ class Detail extends Component {
     }).join('')}
           </select>
           <article class="selected-list">
-          </artilce>
-          <button type="button" class="put-button">장바구니에 담기</button>
+          </article>
+          <button type="button" class="put-button">장바구니에 추가</button>
         </section>
       </article>
     `
