@@ -3,7 +3,7 @@ import List from "./view/List.js";
 import Detail from "./view/Detail.js";
 class App extends Component {
   setup() {
-    this.state = { view: 'list' };
+    this.state = { view: 'list', cart: [] };
   }
   async mounted() {
     const { view } = this.state
@@ -43,7 +43,8 @@ class App extends Component {
         detail.setState({ selectedItemList: { ...detail.state.selectedItemList, ...newState } })
       },
       clickEvent: (e) => {
-        console.log(detail.state.selectedItemList)
+        detail.setState({ cart: { ...detail.state.cart, [id]: detail.state.selectedItemList } })
+        this.setState({ view: 'list' })
       }
     });
   }
