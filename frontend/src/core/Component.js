@@ -3,7 +3,7 @@ class Component {
   state;
   constructor($target, state) {
     this.$target = $target;
-    this.state = state;
+    this.state = { ...state, _childCoponents: {} };
     this.setup();
     this.setEvent();
     this.render();
