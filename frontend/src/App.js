@@ -5,7 +5,7 @@ import Cart from "./view/Cart.js";
 import { request } from './utility/api.js'
 class App extends Component {
   setup() {
-    this.state = { view: 'list', cart: [] };
+    this.state = { ...this.state, view: 'list', cart: [] };
   }
   async mounted() {
     const { view } = this.state
@@ -35,6 +35,7 @@ class App extends Component {
         this.setState({ view: 'cart' })
       }
     });
+    this.appendChild('list', list);
   }
   async DetailView() {
     const { id } = history.state
@@ -61,6 +62,7 @@ class App extends Component {
         })
       }
     });
+    this.appendChild('detail', detail);
   }
   async CartView() {
     const promises = Object.keys(this.state.cart).map(id => request(id));
@@ -72,6 +74,7 @@ class App extends Component {
         return acc;
       }, {})
     })
+    this.appendChild('cart', cart);
   }
 }
 

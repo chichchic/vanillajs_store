@@ -43,7 +43,7 @@ class Detail extends Component {
   }
   mounted() {
     const { selectedItemList, cost } = this.state
-    this.state._childCoponents.selectedList = new SelectedList(document.querySelector('.selected-list'), {
+    const selectedList = new SelectedList(document.querySelector('.selected-list'), {
       selectedItemList, defaultCost: cost, changeEvent: (e) => {
         const id = e.target.dataset.id
         e.target.value = Math.max(e.target.min, e.target.value)
@@ -59,6 +59,7 @@ class Detail extends Component {
         })
       }
     })
+    this.appendChild('selectedList', selectedList);
   }
   setEvent() {
     const { changeEvent, clickEvent } = this.state;
