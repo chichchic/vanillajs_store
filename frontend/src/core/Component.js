@@ -1,9 +1,14 @@
+import { debounceFrame } from '../utility/debounceFrame.js'
 class Component {
   $target;
   state;
   constructor($target, state) {
     this.$target = $target;
     this.state = { ...state, _childCoponents: {} };
+    this._render = debounceFrame(() => {
+      this.$target.innerHTML = this.template();
+      this.mounted();
+    })
     this.setup();
     this.setEvent();
     this.render();
@@ -12,9 +17,7 @@ class Component {
   mounted() { }
   template() { return '' }
   render() {
-    const { $target } = this;
-    $target.innerHTML = this.template();
-    this.mounted();
+    this._render();
   }
   setEvent() { };
   setState(newState) {
