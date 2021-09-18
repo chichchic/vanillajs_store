@@ -1,4 +1,4 @@
-const imageUrl = 'http://127.0.0.1:3000/static/images/'
+const imageUrl = 'http://127.0.0.1:3000/static/images'
 export const list = [
   { id: 1, name: '햄버거', imgSrc: `${imageUrl}/hamburger.jpeg`, cost: 5000 },
   { id: 2, name: '치킨', imgSrc: `${imageUrl}/chicken.jpeg`, cost: 10000 },
