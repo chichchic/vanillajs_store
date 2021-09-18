@@ -24,7 +24,7 @@ class App extends Component {
   async listView() {
     const itemList = await request();
     const list = new List(this.$target, {
-      itemList: [],
+      itemList,
       clickEvent: (e, currentTarget) => {
         const id = currentTarget.dataset.id
         history.pushState({ id: id }, '상세', `/detail/${id}`)
@@ -35,7 +35,6 @@ class App extends Component {
         this.setState({ view: 'cart' })
       }
     });
-    list.setState({ itemList })
   }
   async DetailView() {
     const { id } = history.state
