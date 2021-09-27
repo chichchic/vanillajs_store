@@ -1,18 +1,20 @@
 import { debounceFrame } from '../utility/debounceFrame.js'
 
 export default class Component {
-  constructor($target = document.createElement('div'), props, methods) {
+  constructor($target = document.createElement('div'), props, emits) {
     this.$target = $target;
     this.props = props;
-    this.methods = methods;
+    this.emits = emits;
     this.events = [];
     this.childInfo = {};
     this.childComponent = {};
-    this.state = this.data();
     this.parent = null;
     this._init();
   }
   async _init() {
+    const [data, renderTarget] = this._publishData();
+    this.state = data;
+    this.renderTarget = renderTarget;
     await this.setup();
     await this.setEvent();
     await this.created();
@@ -32,9 +34,10 @@ export default class Component {
   }
   _render = debounceFrame(this._realRender.bind(this))
   _createChildren($target) {
-    Object.entries(this.childInfo).forEach(([selector, { classType, props, methods }]) => {
+    Object.entries(this.childInfo).forEach(([selector, { classType, props, emits }]) => {
+      classType = classType();
       this.childComponent[selector] =
-        new classType($target.querySelector(selector), props, methods)
+        new classType($target.querySelector(selector), props, emits)
       this.childComponent[selector].parent = this;
     })
   }
@@ -51,21 +54,35 @@ export default class Component {
       this.childComponent[key]._destroy();
     }
   }
-  data() { return {} }
-  getData(keys) {
-    return keys.reduce((acc, cur) => {
-      acc[cur] = this.state[cur];
-      let _value = this.state[cur];
-      if (_value === undefined) {
-        itemList = this.props[cur]
-      }
-      Object.defineProperty(this.state, cur, {
+  _publishData() {
+    const data = this.data();
+    const renderTarget = {};
+    for (const key in data) {
+      let _value = data[key];
+      renderTarget[key] = null;
+      Object.defineProperty(data, key, {
         get: () => _value,
         set: (value) => {
           _value = value;
-          this._render();
+          if (renderTarget[key] !== null) {
+            renderTarget[key]._render();
+          }
         }
       })
+    }
+    return [data, renderTarget]
+  }
+  data() { return {} }
+  getProps() {
+    return this.parent.getData(this.props, this);
+  }
+  getData(keys, renderTarget = this) {
+    // TODO: 여기서 render를 set에 추가해야함
+    return keys.reduce((acc, cur) => {
+      acc[cur] = this.state[cur];
+      if (this.renderTarget[cur] === null || this.renderTarget[cur] !== renderTarget.parent) {
+        this.renderTarget[cur] = renderTarget;
+      }
       return acc;
     }, {})
   }
@@ -84,12 +101,12 @@ export default class Component {
     this.$target.addEventListener(eventType, eventListener)
     this.events.push({ type: eventType, eventListener });
   };
-  setChild(selector, classType, props, methods) {
+  setChild(selector, classType, props, emits) {
     if (this.childInfo[selector] !== undefined) {
-      this.childInfo[selector] = { classType, props, methods }
+      this.childInfo[selector] = { classType, props, emits }
       return;
     }
-    let _value = { classType, props, methods };
+    let _value = { classType, props, emits };
     Object.defineProperty(this.childInfo, selector, {
       get: () => _value,
       set: (value) => {
