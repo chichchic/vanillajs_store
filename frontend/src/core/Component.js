@@ -1,53 +1,70 @@
-import { debounceFrame } from '../utility/debounceFrame.js'
-class Component {
-  $target;
-  state;
-  constructor($target, state) {
+export default class Component {
+  constructor($target = document.createElement('div'), props, methods) {
     this.$target = $target;
-    this.state = { ...state, _childComponent: {} };
-    this._events = [];
-    this._render = debounceFrame(() => {
-      this.$target.innerHTML = this.template();
-      this.mounted();
-    })
+    this.props = props;
+    this.methods = methods;
+    this.events = [];
+    this.childInfo = {};
+    this.childComponent = {};
+    this.state = this.data();
+    this.parent = null;
     this.setup();
     this.setEvent();
-    this.render();
+    this._render();
+    this.mounted();
   }
-  appendChild(key, childComponent) {
-    this.state._childComponent[key] = childComponent;
-  }
-  setup() { }
-  mounted() { }
-  _destroyed() {
-    this._events.forEach(({ type, eventListener }) => {
-      this.$target.removeEventListener(type, eventListener);
+  _render() {
+    const childEl = document.createElement('div');
+    childEl.innerHTML = this.template().trim();
+    this.$el = childEl.firstChild
+    this._update();
+    this._createChildren(childEl);
+    const replaceEl = document.createElement('div');
+    this.$target.innerHTML = ''
+    this.$target.appendChild(replaceEl);
+    this.$target.replaceChild(this.$el, replaceEl);
+  };
+  _createChildren($target) {
+    Object.entries(this.childInfo).forEach(([selector, { classType, props, methods }]) => {
+      this.childComponent[selector] =
+        new classType($target.querySelector(selector), props, methods)
+      this.childComponent[selector].parent = this;
     })
-    for (const [key, childComponent] of Object.entries(this.state._childComponent)) {
-      childComponent._destroyed();
-    }
-    this.destroyed();
   }
   _update() {
-    for (const [key, childComponent] of Object.entries(this.state._childComponent)) {
-      childComponent._destroyed();
+    for (const key in this.childComponent) {
+      this.childComponent[key]._destroy();
     }
-    this.update();
   }
-  update() {
-
+  _destroy() {
+    this.events.forEach(({ type, eventListener }) => {
+      this.$target.removeEventListener(type, eventListener);
+    })
+    for (const key in this.childComponent) {
+      this.childComponent[key]._destroy();
+    }
   }
-  destroyed() { }
+  data() { return {} }
+  getData(keys) {
+    return keys.reduce((acc, cur) => {
+      acc[cur] = this.state[cur];
+      let _value = this.state[cur];
+      if (_value === undefined) {
+        itemList = this.props[cur]
+      }
+      Object.defineProperty(this.state, cur, {
+        get: () => _value,
+        set: (value) => {
+          _value = value;
+          this._render();
+        }
+      })
+      return acc;
+    }, {})
+  }
+  // NOTE: template에 가장 바깥은 한개의 태그로 감싸져있어야 함
   template() { return '' }
-  render() {
-    this._render();
-  }
   setEvent() { };
-  setState(newState) {
-    this._update();
-    this.state = { ...this.state, ...newState };
-    this.render();
-  }
   addEvent(eventType, selector, callBack) {
     const children = [...this.$target.querySelectorAll(selector)]
     const isTarget = target => children.find((el) => el === target)
@@ -58,8 +75,23 @@ class Component {
       callBack(event, currentTarget)
     }
     this.$target.addEventListener(eventType, eventListener)
-    this._events.push({ type: eventType, eventListener });
+    this.events.push({ type: eventType, eventListener });
+  };
+  setChild(selector, classType, props, methods) {
+    if (this.childInfo[selector] !== undefined) {
+      this.childInfo[selector] = { classType, props, methods }
+      return;
+    }
+    let _value = { classType, props, methods };
+    Object.defineProperty(this.childInfo, selector, {
+      get: () => _value,
+      set: (value) => {
+        _value = value;
+        this._render();
+      },
+      enumerable: true
+    })
   }
+  setup() { };
+  mounted() { };
 }
-
-export default Component
