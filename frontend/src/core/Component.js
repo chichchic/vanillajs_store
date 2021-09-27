@@ -1,3 +1,5 @@
+import { debounceFrame } from '../utility/debounceFrame.js'
+
 export default class Component {
   constructor($target = document.createElement('div'), props, methods) {
     this.$target = $target;
@@ -8,12 +10,16 @@ export default class Component {
     this.childComponent = {};
     this.state = this.data();
     this.parent = null;
-    this.setup();
-    this.setEvent();
-    this._render();
-    this.mounted();
+    this._init();
   }
-  _render() {
+  async _init() {
+    await this.setup();
+    await this.setEvent();
+    await this.created();
+    await this._render();
+    await this.mounted();
+  }
+  _realRender() {
     const childEl = document.createElement('div');
     childEl.innerHTML = this.template().trim();
     this.$el = childEl.firstChild
@@ -23,7 +29,8 @@ export default class Component {
     this.$target.innerHTML = ''
     this.$target.appendChild(replaceEl);
     this.$target.replaceChild(this.$el, replaceEl);
-  };
+  }
+  _render = debounceFrame(this._realRender.bind(this))
   _createChildren($target) {
     Object.entries(this.childInfo).forEach(([selector, { classType, props, methods }]) => {
       this.childComponent[selector] =
@@ -94,4 +101,5 @@ export default class Component {
   }
   setup() { };
   mounted() { };
+  created() { };
 }
