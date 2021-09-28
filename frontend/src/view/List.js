@@ -31,9 +31,16 @@ class List extends Component {
     this.state.itemList = await request();
   }
   setEvent() {
-    const { clickEvent, goCart } = this.methods;
-    this.addEvent('click', '.item-card', clickEvent)
-    this.addEvent('click', '.go-cart', goCart)
+    const { setView } = this.emits;
+    this.addEvent('click', '.item-card', (e, currentTarget) => {
+      const { id } = currentTarget.dataset
+      history.pushState({ id }, '상세', `/detail/${id}`)
+      setView(() => 'detail')
+    })
+    this.addEvent('click', '.go-cart', () => {
+      history.pushState(null, '장바구니', `/detail/cart`)
+      setView(() => 'cart')
+    })
   }
 }
 
