@@ -1,9 +1,21 @@
 import Component from '../core/Component.js';
+import { request } from '../utility/api.js';
 import { spearator } from '../utility/separator.js'
 
 class Cart extends Component {
+  async created() {
+    const { cart } = this.getProps();
+    const promiseItemInfo = Object.keys(cart).map((key) => request(key))
+    const itemInfo = await Promise.all(promiseItemInfo);
+    this.state.itemInfo = itemInfo.reduce((acc, cur) => {
+      acc[cur.id] = cur;
+      return acc;
+    }, {});
+  }
   template() {
-    const { cart, itemInfo } = this.state;
+    const { cart } = this.getProps();
+    const { itemInfo } = this.getData(['itemInfo'])
+    console.log(itemInfo)
     return `
       <section class="cart">
         ${Object.entries(cart).map(([key, selectedList]) => `
