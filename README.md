@@ -1,3 +1,7 @@
+# 예제 실행 방법
+1. backend 폴더에서 npm(yarn)을 활용하여 모듈을 설치 한 후 npm(yarn) run start 한다.
+2. fronend 폴더에서 npm(yarn)을 활용하여 모듈을 설치 한 후 npm(yarn) run start 한다.
+
 # core component 내용 정리
 
 ## 생성
@@ -28,7 +32,7 @@ emits: 부모 state를 변경할 때 사용하는 함수를 가진 object
 
 **data()**
 
-component에서 사용하는 state를 만들어주는 함수이다. object 형식으로 값을 반환해준다. 
+component에서 사용하는 state를 만들어주는 함수이다. object 형식으로 값을 반환해준다.
 
 **getData()**
 
