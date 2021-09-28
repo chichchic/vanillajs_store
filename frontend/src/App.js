@@ -1,7 +1,7 @@
 import Component from "./core/Component.js";
 import List from "./view/List.js";
 import Detail from "./view/Detail.js";
-// import Cart from "./view/Cart.js";
+import Cart from "./view/Cart.js";
 import { request } from './utility/api.js'
 
 class App extends Component {
@@ -15,17 +15,19 @@ class App extends Component {
       <div class="view"></div>
     `
   }
-  created() {
+  setup() {
     this.setChild('.view', () => {
       switch (this.state.view) {
         case 'list':
           return List
         case 'detail':
           return Detail
+        case 'cart':
+          return Cart
         default:
           break;
       }
-    }, [], {
+    }, ['cart'], {
       setView: (fn) => {
         const { view } = this.getData(['view'])
         this.state.view = fn(view);
