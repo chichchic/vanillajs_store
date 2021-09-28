@@ -6,7 +6,9 @@ import { request } from './utility/api.js'
 
 class App extends Component {
   data() {
-    return { view: 'list' }
+    return {
+      view: 'list', cart: {}
+    }
   }
   template() {
     return `
@@ -27,6 +29,10 @@ class App extends Component {
       setView: (fn) => {
         const { view } = this.getData(['view'])
         this.state.view = fn(view);
+      },
+      setCart: (fn) => {
+        const { cart } = this.getData(['cart'])
+        this.state.cart = fn(cart)
       }
     })
   }
