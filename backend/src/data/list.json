@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "햄버거",
+    "imgSrc": "http://127.0.0.1:3000/static/images/hamburger.jpeg",
+    "cost": 5000
+  },
+  {
+    "id": 2,
+    "name": "치킨",
+    "imgSrc": "http://127.0.0.1:3000/static/images/chicken.jpeg",
+    "cost": 10000
+  },
+  {
+    "id": 3,
+    "name": "볶음밥",
+    "imgSrc": "http://127.0.0.1:3000/static/images/fried_rice.jpeg",
+    "cost": 8000
+  },
+  {
+    "id": 4,
+    "name": "라면",
+    "imgSrc": "http://127.0.0.1:3000/static/images/ramen.jpeg",
+    "cost": 3000
+  },
+  {
+    "id": 5,
+    "name": "핫도그",
+    "imgSrc": "http://127.0.0.1:3000/static/images/hotdog.jpeg",
+    "cost": 1000
+  },
+  {
+    "id": 6,
+    "name": "케이크",
+    "imgSrc": "http://127.0.0.1:3000/static/images/cake.jpeg",
+    "cost": 20000
+  },
+  {
+    "id": 7,
+    "name": "빼빼로",
+    "imgSrc": "http://127.0.0.1:3000/static/images/pepero.jpeg",
+    "cost": 500
+  },
+  {
+    "id": 8,
+    "name": "아이스크림",
+    "imgSrc": "http://127.0.0.1:3000/static/images/ice_cream.jpeg",
+    "cost": 800
+  },
+  {
+    "id": 9,
+    "name": "떡볶이",
+    "imgSrc": "http://127.0.0.1:3000/static/images/tteokbokki.jpeg",
+    "cost": 12000
+  },
+  {
+    "id": 10,
+    "name": "커피",
+    "imgSrc": "http://127.0.0.1:3000/static/images/coffee.jpeg",
+    "cost": 2000
+  },
+  {
+    "id": 11,
+    "name": "잼",
+    "imgSrc": "http://127.0.0.1:3000/static/images/jam.jpeg",
+    "cost": 6000
+  },
+  {
+    "id": 12,
+    "name": "피자",
+    "imgSrc": "http://127.0.0.1:3000/static/images/pizza.jpeg",
+    "cost": 8000
+  }
+]
