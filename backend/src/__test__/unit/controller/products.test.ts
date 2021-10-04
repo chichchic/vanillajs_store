@@ -36,18 +36,18 @@ describe("Product Controller getOptionsById Test", () => {
   });
   it("should return 200 response code", async () => {
     req.params.productId = productId;
-    await productController.getOptionsById(req, res, next);
+    await productController.getOptionsById(req, res);
     expect(res.statusCode).toBe(200);
     expect(res._isEndCalled()).toBeTruthy;
   });
   it("should return json body in response", async () => {
     req.params.productId = productId;
-    await productController.getOptionsById(req, res, next);
+    await productController.getOptionsById(req, res);
     expect(res._getJSONData()).toStrictEqual(mockOptions);
   });
   it("should return 404 when product doesnt exist", async () => {
     req.params.productId = -1;
-    await productController.getOptionsById(req, res, next);
+    await productController.getOptionsById(req, res);
     expect(res.statusCode).toBe(404);
     expect(res._isEndCalled()).toBeTruthy;
   });
