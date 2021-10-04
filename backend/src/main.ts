@@ -16,3 +16,5 @@ app.use("/static", express.static(__dirname + "/public"));
 app.use("/api/product", productsRoutes);
 
 app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+
+export default app;
