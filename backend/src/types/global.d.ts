@@ -1,3 +1,10 @@
+interface product {
+  id: number;
+  name: string;
+  imgSrc: string;
+  cost: number;
+}
+
 interface optionDetail {
   id: string;
   name: string;
@@ -5,10 +12,6 @@ interface optionDetail {
   stock: number;
 }
 
-interface options {
+interface options extends product {
   options: optionDetail[];
-  id: number;
-  name: string;
-  imgSrc: string;
-  cost: number;
 }
