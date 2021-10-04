@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "햄버거",
+  "imgSrc": "http://127.0.0.1:3000/static/images/hamburger.jpeg",
+  "cost": 5000,
+  "options": [
+    { "id": "101", "name": "맘스터치", "cost": 1000, "stock": 0 },
+    { "id": "102", "name": "롯데리아", "cost": 2000, "stock": 3 },
+    { "id": "103", "name": "맥도날드", "cost": 0, "stock": 1 },
+    { "id": "104", "name": "버거킹", "cost": 3000, "stock": 2 }
+  ]
+}
