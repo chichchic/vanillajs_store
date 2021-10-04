@@ -3,8 +3,7 @@ import httpMocks from "node-mocks-http";
 import * as productController from "src/controller/products";
 
 import list from "src/data/list.json";
-
-import mockOptions from "src/__test__/data/mockOptions.json";
+import { extractOptions } from "src/utility/extract";
 
 const productId = 1;
 
@@ -43,7 +42,7 @@ describe("Product Controller getOptionsById Test", () => {
   it("should return json body in response", async () => {
     req.params.productId = productId;
     await productController.getOptionsById(req, res);
-    expect(res._getJSONData()).toStrictEqual(mockOptions);
+    expect(res._getJSONData()).toStrictEqual(extractOptions(productId));
   });
   it("should return 404 when product doesnt exist", async () => {
     req.params.productId = -1;
