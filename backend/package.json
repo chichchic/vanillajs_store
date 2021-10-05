@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node out/main.js",
-    "build": "tsc && webpack",
-    "test": "jest"
+    "build": "npx tsc && npx webpack",
+    "test": "npx jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
