@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: "./dist/index.js",
+  entry: "./dist/main.js",
   mode: "development",
   target: ["node", "es2020"],
   externals: [nodeExternals()],
