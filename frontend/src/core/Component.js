@@ -1,7 +1,7 @@
 import { debounceFrame } from '../utility/debounceFrame.js'
 
 export default class Component {
-  constructor($target = document.createElement('div'), props, emits) {
+  constructor($target, props, emits) {
     this.$target = $target;
     this.props = props;
     this.emits = emits;
